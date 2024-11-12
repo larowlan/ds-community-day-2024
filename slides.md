@@ -1,4 +1,4 @@
-## DrupalSouth Community Day 2025
+## DrupalSouth Community Day 2024
 ### Venue Sponsor's remarks
 
 Note:
