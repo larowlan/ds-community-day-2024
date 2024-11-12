@@ -1,796 +1,344 @@
-
+## DrupalSouth Community Day 2025
+### Venue Sponsor's remarks
 
 Note:
 
-- Show of hands
-- Put yourself on a spectrum from React zealot to Vue zealot
+- I would say thanks for inviting me to speak, but as sponsors of the venue, we were given this slot
+- So that gives us 20 mins to hit you up with a hard sell
+- So please lock the doors, we have a captive audience
 
 ---
 
-### ℹ️ Overview
+## The pitch
 
-<ul>
-<li class="fragment fade-in-then-out">Looking at comparable React and Vue code</li>
-<li class="fragment fade-in-then-out">Compare and contrast as we go</li>
-</ul> ️
+Note:
 
-Notes:
-- Assume you're comfortable with either React or Vue
-- Or at least have an understanding of building with a component framework
-- We're looking at the composition API for Vue, not the options API. We're also going to look purely at SFC with the script setup sugar.
-- And bear in mind you can add JSX support for Vue, to get even closer to React, but that's out of scope for today
-- There will be a lot of code
+- I'm here to talk to you about something you can introduce at your workplace
+- It's something we've had at PreviousNext for a long time
 
 ---
 
-### 🥚 Background
+## The results speak for themselves
+
+Note:
+
+- Don't take my word for it
+- Let's see some results from happy customers
+
+---
+
+## 91%
+### it improved my skills
+
+---
+
+## 74%
+### it made me better at my job
+
+---
+
+## 79%
+### it expanded my professional network
+
+---
+
+## 88%
+### want to work for an employer where it is <br>encouraged and supported 
+
+---
+
+## 95%
+### it improves an employer's<br>reputation with the community
+
+---
+
+## 91%
+### is something I find meaningful
+
+---
+
+## 75%
+### it is something I'd like to do more of
+
+---
+
+## 92%
+### it visually reversed <br>the signs of aging
+
+Note:
+- Serves me right for allowing people to add responses
+
+---
+
+## What am I selling?
+
+---
+
+## Not a training product
 
 Note: 
-- Vue created by Evan You in 2014. Latest version is v3. For Drupal devs, v2 to v3 is like D7 to D8.
-- 16kb baseline, every feature 27kb
-- That's the only time I'll mention Drupal 😀
-- Community driven open source funded by sponsorship like Drupal
-- MIT licensed
-- React started at Facebook, majority of core developers funded by Meta
-- Originally a psuedo open source license with a non compete clause but now has a real open source license MIT
-- Current version is 18, first release was in 2013
-- About 137Kb with React and ReactDom
-- If you want to know their origins search for the honeypot documentaries on YouTube, very interesting
+- but it will work in the same way - people will get new skills, technical and interpersonal
 
 ---
 
-### 🐣 Getting started
-
-<div class="middle"><img alt="Vite logo" src="https://vitejs.dev/logo.svg" height="100" width="100" />tl;dr just use Vite</div>
-<div>
-<div class="fragment fade-in-then-out">npm create vite@latest --template=vue</div>
-<div class="fragment fade-in-then-out">npm create vite@latest --template=react</div>
-</div>
+## Not marketing
 
 Note:
-- Add -ts to the templates if that's your flavour
-- For those not using it, Vite does npm module resolving and pre-bundling, a dev server, hot module reloading.
-- Supports TS and JSX out of the box as well as css, postcss and css modules and can easily add support for preprocessors
+- it can make you more attractive to clients, employers, employees
+- and it will give you whiter white and brighter brights
 
 ---
 
-### 📣 Hello World
+## Not a social network*
 
-<div class="two-column">
-<pre class="react">
-<code>
-const HelloWorld = ({ msg }) => {
-  return (
-    <>
-      <div class="hello">
-        <h1>{msg}</h1>
-      </div>
-    &lt;/>
-  );
-};
-export default HelloWorld;
-</code>
-</pre>
-<pre class="vue fragment fade-in">
-<code>
-<template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-  </div>
-</template>
-&lt;script setup&gt;
-defineProps({
-  msg: { type: String, required: true },
-});
-&lt;/script&gt;
-
-</code>
-</pre>
-</div>
-
-Notes:
-- So on the react side we've got a functional component
-- You have to import React for the compiler
-- Props are passed as an object to the first argument, we destructure them into individual vars
-- Props are output using single moustaches/curly brackets
-- React components must have one element at the root, you can use a fragment <> if you don't have a wrapper
-- We just export a function
-- By default no typing of props - can use proptypes npm package, or you can use typescript
-- on the vue side, our markup goes in a top-level template tag
-- javascript goes in a top-level script tag, with a setup attribute
-- props are defined and can have defaults
-- defineProps is a available from the transpiler, no need to import it
-- props are output with double muzzie brackets
-
----
-
-### 🚀 Mounting your application
-
-<div class="two-column">
-<pre class="react">
-<code>
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-ReactDOM.createRoot(
-  document.getElementById("app")
-).render(
-  &lt;React.StrictMode&gt;
-    &lt;App /&gt;
-  &lt;/React.StrictMode&gt;
-);
-
-</code>
-</pre>
-<pre class="vue fragment fade-in">
-<code>
-import { createApp } from "vue";
-import App from "./App.vue";
-createApp(App).mount("#app");
-</code>
-</pre>
-</div>
-
-Notes:
-- So React side we're importing React and React dom, creating a root for a dom node and calling render with our component
-- StrictMode is for development, it double renders components and double runs effects to help detect bugs
-- On the Vue side, its very similar, we import createApp and our root component and then mount it using a dom selector
-
----
-
-### ⚙️ Props - definition
-
-<div class="two-column">
-<pre class="react">
-<code>
-npm i -S prop-types;
-import PropTypes from 'prop-types';
-const MyComponent = ({personName: 'Johnny'}) => {
-  return <h1>Hi {personName}</h1>;
-}
-MyComponent.propTypes = {
-  personName: PropTypes.string.isRequired,
-}
-</code>
-</pre>
-<pre class="vue fragment fade-in">
-<code>
-&lt;script setup&gt;
-defineProps({
-  personName: { type: String, default: 'Johnny' },
-});
-&lt;/script&gt;
-</code>
-</pre>
-</div>
-
-Notes: 
-- If you want static prop analysis and you're not using Typescript, you can use the proptypes package
-- Install the package, and put a static propTypes property on your component
-- You can define your own validation function in Vue
-- Default values for objects and arrays in Vue must use a factory function
-
----
-
-### ⚙️ Props - passing values
-
-<div class="two-column">
-<pre class="react">
-<code>
-import "MyComponent" from "./Component"
-const SomeParent = ({personName}) => {
-  const person = {
-   personName
- }
-  return <> 
-    &lt;MyComponent personName="Bessie"/&gt;
-    &lt;MyComponent personName={personName}/&gt;
-    &lt;MyComponent {...person}/&gt;
-  &lt;/&gt;
-}
-</code>
-</pre>
-<pre class="vue fragment fade-in">
-<code>
-<template>
-  &lt;MyComponent person-name="Bessie" /&gt;
-  &lt;MyComponent :person-name="personName" /&gt;
-  &lt;MyComponent v-bind="person" /&gt;
-</template>
-&lt;script setup&gt;
-const person = {
-  personName: 'Bessie',
-}
-&lt;/script&gt;
-</code>
-</pre>
-</div>
+*Technically
 
 Note:
-- React props are passed with the name as is
-- Variables use single muzzies, no quotes
-- Objects with matching keys for props can use destructuring
-- Vue uses kebab-case for element props, in double quotes
-- Variables also in double quotes, but the prop is prefixed with a full colon :
-- For an object with matching prop names, you can use the v-bind directive, note no full colon
+- but it will help you build networks
+- you might even make some friends
+- and you can earn karma
+- certainly a great way to spend your time online, more positive than doomscrolling
 
 ---
 
-### 👨‍👩‍👧‍👦 Child elements
-
-<div class="two-column">
-<pre class="react">
-<code>
-const MyComponent = ({children}) => {
-  return <div>{children}</div>
-}
-const Parent = () => (&lt;MyComponent&gt;
-  <p>This is a child</p>
-&lt;/MyComponent&gt;)
-</code>
-</pre>
-<pre class="vue fragment fade-in-then-out col2">
-<code class="highlightjs language-javascript">
-<template>
-  <-- MyComponent.vue -->
-  <div>
-   <slot></slot>
-  </div>
-</template>
-</code>
-</pre>
-<pre class="vue fragment fade-in-then-out col2">
-<code class="highlightjs language-javascript">
-<template>
-  &lt;MyComponent&gt;
-    <p>This is a child</p>
-  &lt;/MyComponent&gt;
-</template>
-&lt;script setup&gt;
-import MyComponent from './MyComponent.vue'
-&lt;/script&gt;
-</code>
-</pre>
-<pre class="vue fragment fade-in-then-out col2">
-<code class="highlightjs language-javascript">
-<template>
-  <-- MyLayout.vue -->
-  <div>
-   <header>
-     <slot name="header"></slot>
-   </header>
-   <main>
-     <slot name="main"></slot>
-   </main>
-    <aside>
-     <slot name="aside"></slot>
-   </aside>
-  </div>
-</template>
-</code>
-</pre>
-<pre class="vue fragment fade-in-then-out col2">
-<code class="highlightjs language-javascript">
-<template>
-  &lt;MyLayout&gt;
-    &lt;template v-slot:header&gt;
-      Header content
-    &lt;/template&gt;
-    &lt;template v-slot:main&gt;
-      Body content
-    &lt;/template&gt;
-    &lt;template v-slot:aside&gt;
-      Sidebar content
-    &lt;/template&gt;
-  &lt;/MyLayout&gt;
-</template>
-&lt;script setup&gt;
-import MyLayout from './MyLayout.vue'
-&lt;/script&gt;
-</code>
-</pre>
-</div>
-
-Notes:
-- With react, there is a special prop called 'children' that contains any child elements
-- With Vue, you place the 'slot' outlet in your template to render children
-- However with Vue you can have multiple slots
+## What is this product?
 
 ---
 
-### 🌡️ Temperature check
-
-Notes:
-
-- Anyone want to move further to the left or the right?
+## 💧 Drupal contribution
 
 ---
 
-### ↩️ Control structures - conditionals
-
-<div class="two-column">
-<pre class="react">
-<code>
-const MyComponent = ({
-  name, 
-  age, 
-  member,
-}) => {
-  if (age > 18) {
-    return <h1>Hi {name}</h1>;
-  }
-  return <h1>
-    Hi {name}{member && <span>🔐</span>}
-  </h1>;
-}
-</code>
-</pre>
-<pre class="vue fragment fade-in">
-<code>
-<template>
-  <h1 v-if="age > 18">Hi {{name}}</h1>
-  &lt;h1 v-else&gt;Hi {{name}}
-    &lt;span v-if="member"&gt;🔐&lt;/span&gt;
-  &lt;/h1&gt;
-</template>
-&lt;script setup&gt;
-defineProps({
-  name: { type: String, required: true },
-  member: { type: Boolean, default: false },
-  age: { type: Number, required: true },
-});
-&lt;/script&gt;
-</code>
-</pre>
-</div>
+## Building a culture of contribution
 
 Note:
-- In react you can use standard if/else control structures
-- You can also use logic operators inside a single muzzie, e.g. &&, however the LHS must be a boolean, so e.g. array.length > 0 rather than array
-- In Vue you use the v-if and v-else directives, again note no full colon, assumed to be an expression.
+- I've been at previous next for 12 years, nearly 13
+- Here at previousnext we're internationally recognised as a major Drupal contributor
+- but it hasn't always been this way
+- I'm here to share some of the ways we do this
+- hopefully you can take some of these ideas back to work with you after the conference
 
 ---
 
-### ↩️ Control structures - loops
+## Work out why you want to contribute
 
-<div class="two-column">
-<pre class="react">
-<code>
-const List = ({
-  items = [],
-}) => {
-  return <ul>
-    {items.map(item => (
-      &lt;ListItem key={item.id}&gt;
-       {item.text}
-      &lt;/ListItem&gt;
-    ))}
-  </ul>
-}
-</code>
-</pre>
-<pre class="vue fragment fade-in">
-<code class="highlightjs language-javascript">
-<template>
-  <ul>
-    &lt;ListItem 
-      v-for="item in items" 
-      :key="item.id"&gt;
-     {{ item.text }}
-    &lt;/ListItem&gt;
-  </ul>
-</template>
-&lt;script setup&gt;
-import ListItem from "./ListItem.vue";
-defineProps({
-  items: { type: Array, required: true },
-});
-&lt;/script&gt;
-</code>
-</pre>
-</div>
-
-Notes:
-- So for react, again you can use native JS features like map
-- You need a key attribute so React can uniquely identify child items for re-rendering
-- And again, the single muzzie around the control structure
-- For Vue, you use the v-for directive, and you also need a key
+Note:
+- I mentioned all the benefits at the start
+- But lets dive into that in more detail
 
 ---
 
-### 📂 State
+### 💭 To ensure Drupal's long-term livelihood
 
-<div class="two-column">
-<pre class="react">
-<code>
-import {useState} from 'react';
-const MyComponent = () => {
-  const [count, setCount] = useState(0);
-  return &lt;&gt;
-    <button>Click me</button>
-    <div>You clicked {count} times</div>
-  &lt;&gt;
-}
-</code>
-</pre>
-<pre class="vue fragment fade-in">
-<code class="highlightjs language-javascript">
-<template>
-    <button>Click me</button>
-    <div>You clicked {{count}} times</div>
-</template>
-&lt;script setup&gt;
-import {ref} from 'vue'
-const count = ref(0);
-&lt;/script&gt;
-</code>
-</pre>
-</div>
-
-Notes:
-- For React, you call useState which return a tuple with a value and a setter
-- For Vue ref returns a reference with a .value property, you don't need to use the .value in templates, vue will unwrap the reference
+Note:
+- You've spent a lot of time and effort building your sites on Drupal
+- You want to get the most out of that investement
+- you have a vested interest
+- no one wants to be marooned on dead tech
 
 ---
 
-### ⚡️ Events
+### 💭 To align Drupal with your strategic goals
 
-<div class="two-column">
-<pre class="react">
-<code>
-import {useState} from 'react';
-const MyComponent = () => {
-  const [count, setCount] = useState(0);
-  return &lt;&gt;
-    &lt;button 
-      onClick={() => setCount(count + 1)}&gt;
-      Click me
-    &lt;/button&gt;
-    <div>You clicked {count} times</div>
-  &lt;&gt;
-}
-</code>
-</pre>
-<pre class="vue fragment fade-in-then-out col2">
-<code class="highlightjs language-javascript">
-<template>
-    &lt;button @click="increment"&gt;Click me&lt;/button&gt;
-    <div>You clicked {{count}} times</div>
-</template>
-&lt;script setup&gt;
-import {ref} from 'vue'
-const count = ref(0);
-const increment = () => {
-  count.value++;
-};
-&lt;/script&gt;
-</code>
-</pre>
-<pre class="vue fragment fade-in col2">
-<code class="highlightjs language-javascript">
-<template>
-    &lt;button @click="increment"&gt;Click me&lt;/button&gt;
-    <div>You clicked {{count}} times</div>
-</template>
-&lt;script setup&gt;
-import {ref} from 'vue'
-const count = ref(0);
-const emit = defineEmits(['update']);
-const increment = () => {
-  count.value++;
-  emit('update', count);
-};
-&lt;/script&gt;
-</code>
-</pre>
-<pre class="vue fragment fade-in col2">
-<code class="highlightjs language-javascript">
-<template>
-    &lt;Counter @update="handleUpdate"&gt;&lt;/Counter&gt;
-</template>
-&lt;script setup&gt;
-import Counter from './Counter.vue
-const handleUpdate = (count) => {
-  console.log(count)
-};
-&lt;/script&gt;
-</code>
-</pre>
-</div>
-
-Notes:
-- For React, events are properties in camel case, so not onclick, but onClick with capital C
-- In Vue, because there's no setter, you have to set the .value direct
-- Use @click which is shorthand for v-on:click
-- Vue has a lot of modifiers like .prevent for prevent default
-- Vue also supports emitting events to parents, so they can subscribe to children events
-- In React you'd typically do this by passing the handler as a prop from the parent
+Note:
+- Drupal is a do-ocracy
+- Decisions are made by those who show up
+- If you're not taking part in the conversations you may end up somewhere you don't want to be
+- getting involved is your chance to have a say in the direction and share your unique needs
 
 ---
 
-### 🌡️ Temperature check
+### 💭 To grow your staff skillsets
 
-Notes:
-
-- Anyone want to move further to the left or the right?
-
----
-
-### 🎨 Styling 
-
-<div class="two-column">
-<pre class="react col1">
-<code>
-import "./styles.css";
-const MyComponent = () => {
-  return &lt;div className="lede">markup&lt;/div>
-}
-</code>
-</pre>
-<pre class="react fragment fade-in col1">
-<code>
-import styles from "./styling.module.css";
-const MyComponent = () => {
-  return &lt;div className={styles.someStyle}&gt;
-    markup
-  &lt;/div&gt;
-}
-</code>
-</pre>
-<pre class="vue fragment fade-in">
-<code class="highlightjs language-javascript">
-<template>
-    <div class="some-style">markup</div>
-</template>
-&lt;style scoped&gt;
-.some-style {
-  font-weight: 700;
-}
-&lt;/style&gt;
-</code>
-</pre>
-</div>
-
-Notes:
-- With React you can have global styles
-- Or you can use CSS modules for scoped styling, note .some-style becomes someStyle
-- Note the use of className instead of class, class being a reserved word in JS
-- Or you can use one of many CSS in JS libraries like emotion, styled components, vanilla extract
-- Vue has scoped styles out of the box, just use class as a normal attribute
+Note:
+- drupal has a notorious record of being hard to master
+- you get to work with the brightest Drupal minds in the world
+- you can learn from their approach and feedback on yours
+- eg committee - opportunity to work with people from different backgrounds with fresh perspectives on problems you're trying to solve
+- eg code reviews - review code of some of the best drupal devs in the world, or have them review your code
 
 ---
 
-### ⌨️ Data binding
+### 💭 To enhance your reputation as an employer of choice
 
-<div class="two-column">
-<pre class="react">
-<code>
-import {useState} from 'react';
-const MyComponent = () => {
-  const [text, setText] = useState('');
-  return &lt;&gt;
-    &lt;label htmlFor="my-input"&gt;
-      Name
-    &lt;/label&gt;
-    &lt;input 
-      id="my-input" 
-      value={text} 
-      onChange={(e) =&gt; setText(e.target.value)} 
-    /&gt;
-  &lt;&gt;
-}
-</code>
-</pre>
-<pre class="vue fragment fade-in">
-<code class="highlightjs language-javascript">
-<template>
-    <label for="my-input">
-      Name
-    </label>
-    &lt;input 
-      id="my-input"
-      type="text"
-      v-model="text"
-    /&gt;
-</template>
-&lt;script setup&gt;
-import {ref} from 'vue'
-const text = ref('');
-&lt;/script&gt;
-</code>
-</pre>
-</div>
-
-Notes:
-- So in React you use state, but would likely move to a reducer or similar once the form got complex enough (topic for another day)
-- Note the use of htmlFor, again for is a reserved word in JS.
-- With Vue, you just v-model and it will keep your ref value in sync
+Note:
+- Drupal talent can be hard to recruit and retain
+- Our average tenure at PNX is 6+ years, this is unheard of
+- we've talked about why, let's talk about how
 
 ---
 
-### 🏗️ Data fetching
+## Start small - set a goal
 
-<div class="two-column">
-<pre class="react">
-<code>
-import {useState, useEffect} from 'react';
-const MyComponent = () => {
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      const users = await fetch(
-        "https://some.url/users"
-      ).then((r) => r.json());
-      setData(users);
-    };
-    fetchData();
-  }, []);
-  return {data.length > 0 && <ul>
-    {data.map((user) => (
-      <li key={user.id}>{user.name}</li>
-    ))} </ul>}
-}
-</code>
-</pre>
-<pre class="vue fragment fade-in">
-<code class="highlightjs language-javascript">
-<template>
-  &lt;ul v-if="data.length &gt; 0"&gt;
-    &lt;li v-for="user in data" 
-      :key="user.id"
-    &gt;
-      {{ user.name }
-    }&lt;/li&gt;
-  &lt;/ul&gt;
-</template>
-&lt;script setup&gt;
-import {ref} from 'vue'
-const data = ref([]);
-fetch("https://some.url/users")
-  .then(r => r.json())
-  .then(json => {data.value = json});
-&lt;/script&gt;
-</code>
-</pre>
-</div>
-
-Notes:
-- Now this is very primitive, you need to think about abort controllers, loading state, error handling etc
-- So in most cases you'll use a library like Tanstack query (see Jack's session)
-- But let's assume you want to roll your own
-- For React you use the useEffect hook, which we're not going to cover in detail, its a session on its own
-- For Vue, refs can handle async, so you can just call the fetch in the setup script
+Note:
+- What's the best way to get started?
+- attend contribution day (online or virtual)
+- take part in meetings and discussions
+- providing feedback on designs
+- manual test things
+- Make contribution goals part of your annual employee review processes, talk to your employees about ideas they have and things like to learn
+- Friday afternoon contrib
 
 ---
 
-### 🌡️ Temperature check
+## Treat it as an investment
 
-Notes:
-
-- Anyone want to move further to the left or the right?
-
----
-
-### 🗄️ Global state
-
-<ul>
-<li class="react">useReducer/useContext</li>
-<li class="fragment fade-in react">Redux</li>
-<li class="fragment fade-in vue">Pinia</li>
-</ul>
-
-Notes:
-- We don't have enough time to go into global state management in detail
-- But I will leave you some links
-- For React managing state in useState variables gets out of hand quickly, you can use useReducer and useContext hooks to manage a global state object
-- When that gets too messy, a purpose build state library like Redux is recommended
-- For Vue Pinia is the recommended state management library
-- Personally I find Pinia easier to work with than Redux, but the concepts are similar
+Note:
+- for us our marketing and training budgets are largely spent on sponsoring code sprints and speaking at and attending events like this
+- lots of small contributions are still effective
 
 ---
 
-### ↔️ Dom references
+## Things can take time
 
-<div class="two-column">
-<pre class="react">
-<code>
-import {useRef} from 'react';
-const MyComponent = () => {
-  const ref = useRef(null);
-  return &lt;&gt;
-    &lt;button 
-      onClick={() =&gt; ref.current.focus()}&gt;
-        Focus
-    &lt;/button&gt;
-    &lt;input ref={ref} type="text"/&gt;
-  &lt;&gt;
-}
-</code>
-</pre>
-<pre class="vue fragment fade-in">
-<code class="highlightjs language-javascript">
-<template>
-    <button 
-     @click="() => input.value.focus()"
-    >
-      Focus
-    </button>
-    <input type="text" ref="input"/>
-</template>
-&lt;script setup&gt;
-import {ref} from 'vue'
-const input = ref(null);
-&lt;/script&gt;
-</code>
-</pre>
-</div>
-
-Notes:
-- Normally you don't have to interact with the DOM with React and Vue, that's the point of them
-- But sometimes you need to, e.g. to work with DOM apis
-- In this case, both of them are very similar, React has useRef, Vue has ref, which we've seen before
+Note:
+- Drupal is a large and complex project with a reputation for stability, sometimes things can move slowly
+- its important not to get disheartened by this
+- or try to help someone advance someone else's ideas in exchange for them helping you
+- as you build more networks you will find you have greater success by working with your contacts
+- sometimes knowing who to ask is half the battle, so even 'lurking' in channels and issues is a worthwhile investment
+- find out who's who in the zoo
 
 ---
 
-### 🐤 Component lifecycle
+## Get into a regular habit
 
-<div class="two-column">
-<pre class="react">
-<code>
-import {useEffect} from 'react';
-const MyComponent = () => {
-  useEffect(() => {
-     // Do something on mount.
-     return () => {
-       // Do something on unmount.
-     }
-  }, []);
-  return <div>Markup</div>;
-}
-</code>
-</pre>
-<pre class="vue fragment fade-in">
-<code class="highlightjs language-javascript">
-<template>
-    <div>Markup</div>
-</template>
-&lt;script setup&gt;
-import {onMounted, onUnmounted} from 'vue'
-onMounted(() => {
-  // Do something on mount.
-});
-onUnmounted(() => {
-  // Do something on unmount.
-});
-&lt;/script&gt;
-</code>
-</pre>
-</div>
-
-Notes:
-- In this space, React has the useEffect hook for mount, render, unmount callbacks. The second argument to useEffect tells react when to run the effect. 
-- An empty array means only once - ie on mount
-- You return a function for cleanup which is called on unmount
-- Modifying the second argument you can get it to run when certain dependencies change, or on every render
-- For Vue, its more explicit there are dedicated hooks, similar to the old Class based react components pre-hooks
+Note:
+- Give your employees time for contribution
+- Projects have peaks and troughs, in the peaks make a note of things you would like to work on
+- in the troughs come back to those things
+- "A website is like a garden, not a house, you need to continually tend to it" and contribution is the same
+- i've worked on issues where i recieved credit for a contribution I did seven years after the fact
+- if you build it they will come
+- we've talked about how and why, let's talk about what
 
 ---
 
-### 📋️ Summary
+## Find your niche
 
-larowlan.github.io/vue3-for-react-devs
+Note:
+- Drupal is vast, no one person can know all things
+- getting started can be overwhelming
 
-Notes:
-- So React and Vue 3 have a lot in common, and hopefully after this session you could translate one concept to another
-- These slides are available on my github pages if you need to refer to them
-- Which do you prefer?
-- For me Vue has a lot of nice DX features and as you saw, several things like forms, data fetching, styling just feel easier
-- However in React's favour is the ability to use JS in your templating, things like map, filter feel cleaner than v-if and v-for if outputting rows of data
-- Also of note the size of Vue is much smaller than React + ReactDom
+---
+
+## Find your niche
+
+#### 👉️ Find something you care about
+
+Note:
+- it might be accessibility
+- it might be performance
+- as the mentoring team used to say 'we've got issues'
+- the different backgrounds and skillsets of Drupal are what make it so strong
+
+---
+
+## Find your niche
+
+#### 👉️ Find something no-one cares about.
+
+Note:
+- For me it was the forum module
+- for my colleauge Mohit it was 'needs tests' issues
+- for stephen mustgrave it was the size of the 'needs review' backlog
+
+---
+
+## Find your niche
+
+#### 👉️ Find something that would make your day job easier
+
+Note:
+- software can be frustrating
+- we've all had that 'table flip' moment
+- the beauty of open source is you are empowered to fix it rather than suffer in silence
+- We have fieldable block types in core in Drupal 8 because I was tired of all the different solutions in D7
+
+---
+
+## Find your niche
+
+#### 👉️ Working with an agency that can guide you
+
+Note:
+- ServiceNSW is a major contributor to Drupal
+- Their logo has featured in the Driesnote
+- They work with us to improve pain points for their site
+- and through this everyone has benefited
+
+---
+
+## Swim with the current
+
+Note:
+- We have lots of strategic initiatives
+- These are things that move faster
+- You're more likely to get wins and bang for your buck here
+- Drupal CMS (aka starshot) is a great example here
+- This has galvanised a new group of contributors and had great velocity
+- if you're toiling away in isolation, you lose a lot of the benefits
+
+---
+
+## Release your custom code
+
+Note:
+- Sparks interactive boldly decided 'no custom code'
+- This isn't for everyone
+- But if you have a useful module, and release it, the cost of ownership is reduced
+- Entity hierarchy is a great example - we wrote it for UTS who used node hierarchy in D7 and found it caused major issues with revisions and data corruption
+- When we moved to D8 we wrote entity hierarchy as a from the ground rewrite
+- They were happy to release it
+- Now it is getting fixes and improvements from Universities and Governement agencies across the country.
+- CDU added support for microsites
+- DCS rewrote it to be more performant
+- UTS needed microsites and because they had open sourced it, the feature already existed
+  - How many pieces of amazing custom code are locked up somewhere in a private repository never to see the light of day, never to meet their full potential
+
+---
+
+## Be sloppy sam
+
+https://webchick.net/embrace-the-chaos
+
+Note:
+- this is a must read
+- the tl;dr is two devs, one slaves away in isolation 'perfectionist pat' 
+- the other works with the community 'sloppy sam' - puts up their WIP
+- others improved it while they sleep 'code fairies in the night'
+- by the time pat has gotten the courage to share their work, sam and the community have already fixed it
+- don't be scared of being wrong, bring an open mind
+
+---
+
+## Celebrate the wins
+
+Note:
+- When someone in your team is involved in something celebrate it
+- This can be as simple as a #shoutouts channel in slack or teams
+- If you have socials, call it out there too
+
+---
+
+## Share your success
+
+Note:
+- How many agencies here know about the Drupal Planet aggregator
+- How many agencies are in that feed?
+- Write about what you do (Blog posts)
+- Talk at events like this
+- Share it with the wider community
+- Give people a forum to respond (slack threads/social media)
 
 ---
 
 ### Questions❓️
 
-🗨️ larowlan #australia-nz / drupal.slack.org
+- 🗨️ larowlan #australia-nz / drupal.slack.org
+- Chat with me in the hall
 
+Note:
+- I'm happy to help folks get started
+- Willing to talk to groups about it
+- I wear a lot of hats in the community but I see enabling others as one of the most valuable ways to spend my time
